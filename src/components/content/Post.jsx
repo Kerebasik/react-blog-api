@@ -24,10 +24,10 @@ function Post(){
             {postId}
         </Box>
         <Box className={cssStyle.contant}>
-
+            Basic text in post
         </Box>
         <Box className={cssStyle.comments}>
-
+            all comments in post (use component)
         </Box>
     </Container>
     </>)
