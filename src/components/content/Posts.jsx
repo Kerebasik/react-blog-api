@@ -99,6 +99,7 @@ function Profile(){
                         fullWidth
                         label="Search"
                         value={query}
+                        
                         onChange={(event) => setQuery(event.target.value)}/>  
                     </Grid>
                 </Grid>

@@ -1,14 +1,13 @@
 import React, { useState, useEffect}  from 'react';
 import {Typography, Box,  Container, Grid} from '@material-ui/core';
 
-
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useParams } from 'react-router';
 
 import createAvatarUrl from 'services/createApiImage';
 
-import axios from 'axios';
+import axiosInstance from 'services/createApiInstance'
 
 
 
@@ -79,7 +78,7 @@ function ProfileUsers(){
     
 
         useEffect(()=>{
-            axios.get(`http://test-blog-api.ficuslife.com/api/v1/users/${userId}`)
+            axiosInstance.get(`http://test-blog-api.ficuslife.com/api/v1/users/${userId}`)
             .then(({data})=>{
                 setUserData(data)
                 setName(data.name)

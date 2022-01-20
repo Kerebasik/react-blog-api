@@ -4,9 +4,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import { makeStyles } from '@material-ui/core/styles';
 
-import FormData from 'form-data'
-import { encode } from 'base-64';
-
 import DeleteAccount from 'components/content/DialogDeleteAccount';
 import axiosInstance from 'services/createApiInstance';
 import createAvatarUrl from 'services/createApiImage';
@@ -22,6 +19,10 @@ const usesStyles = makeStyles((theme) => ({
 
     main:{
         flex:'1 1 auto',
+    },
+    
+    img:{
+        width:'100%',
     },
 
     input: {

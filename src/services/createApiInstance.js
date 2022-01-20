@@ -2,8 +2,6 @@ import axios from "axios";
 
 const API = "http://test-blog-api.ficuslife.com/api/v1";
 
-
-
 const axiosInstance = axios.create({
     baseURL:`${API}`,
     headers:{
