@@ -13,14 +13,14 @@ const usesStyles = makeStyles((theme) => ({
     wrapper:{
         height:'100%',
         display:'flex',
-        flexDirection:'column', 
+        flexDirection:'column',
         paddingTop:'10px',
     },
 
     main:{
         flex:'1 1 auto',
     },
-    
+
     img:{
         width:'100%',
     },
@@ -40,9 +40,9 @@ const usesStyles = makeStyles((theme) => ({
         flexDirection:'row',
         alignItems:'center',
         borderBottom:'solid 1px gray',
-        wordWrap:'break-word', 
-        padding:'10px 0px' 
-        
+        wordWrap:'break-word',
+        padding:'10px 0px'
+
     },
 
     mainData:{
@@ -56,7 +56,7 @@ const usesStyles = makeStyles((theme) => ({
     },
 
     da:{
-        wordWrap:'break-word',  
+        wordWrap:'break-word',
         maxWidth:'100%'
     }
 
@@ -64,7 +64,7 @@ const usesStyles = makeStyles((theme) => ({
 
 
 function Profile(){
-    
+
     const cssStyle = usesStyles();
 
     const [myData, setMyData] = useState({});
@@ -83,7 +83,7 @@ function Profile(){
     const professionHandler = (event) =>{
         setProfession(event.target.value)
     }
-    
+
     const nameHandler = (event) =>{
         setName(event.target.value)
     }
@@ -95,7 +95,7 @@ function Profile(){
     const detailsHandler = (event) =>{
         setDetails(event.target.value)
     }
-    
+
     const extraDetailsHandler = (event) =>{
         setExtraDetails(event.target.value)
     }
@@ -115,27 +115,19 @@ function Profile(){
             profession:profession,
             details:details
         }
-        axiosInstance.patch(`/users/${myData._id}`, myNewData)    
+        axiosInstance.patch(`/users/${myData._id}`, myNewData)
     }
 
     async function check(){
-       /* 
-        var formData = new FormData();
-        var filedata = document.getElementById('icon-button-file').files[0];
-        console.log(filedata)
-        var content = encode(filedata);
-        // var blob = new Blob([content], { type: "image/jpg"});
-        console.log(content)
-        formData.append("image", content);
+        const formData = new FormData();
+        const filedata = document.getElementById('icon-button-file').files[0];
+        formData.append("avatar", filedata);
 
-        axiosInstance.put(`/users/upload/61caff12b2686012c09c23a9`,{
+        axiosInstance.put(`/users/upload/61caff12b2686012c09c23a9`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             },
         })
-        */
-
-        console.log('image upload')
     }
 
     const checkKey = (key) =>{
@@ -156,23 +148,23 @@ function Profile(){
             setProfession(response.data.profession)
         })
     },[])
-   
+
     return(
             <Container maxWidth = 'md' className={cssStyle.wrapper}>
-                
+
                 <Box className = { cssStyle.header }>
                     <Grid container>
                         <Grid item xs={9} md={10}><Typography variant="h4">My Profile:</Typography></Grid>
-                        
+
                         <Grid item md={1}>
                             {
                                 !edit &&
                             <>
-                                <input 
+                                <input
                                 type="file"
                                 accept="image/jpeg"
-                                className={cssStyle.input} 
-                                id="icon-button-file" 
+                                className={cssStyle.input}
+                                id="icon-button-file"
                                 onChange={check}
                                 />
                                 <label htmlFor="icon-button-file">
@@ -181,22 +173,22 @@ function Profile(){
                                     </IconButton>
                                 </label>
                             </>
-                            }  
+                            }
                         </Grid>
 
                         <Grid item xs={3} md={1}>
                             {
-                                !edit ? 
+                                !edit ?
                             <IconButton
-                                onClick={handleClickOpenEdit} 
+                                onClick={handleClickOpenEdit}
                                 color="primary">
                                 <EditIcon />
                             </IconButton>
 
                                 :
-                                
-                            <Fab 
-                                color="primary" 
+
+                            <Fab
+                                color="primary"
                                 aria-label="add"
                                 onClick={handleClickCloseEdit}>
                                 OK
@@ -209,28 +201,28 @@ function Profile(){
 
                 <Box className = { cssStyle.main }>
                        <Grid container>
-                           <Grid item md={4}> 
-                                <img 
+                           <Grid item md={4}>
+                                <img
                                 className={cssStyle.img}
                                 src={createAvatarUrl(myData.avatar)}
-                                alt={`My Logo`} 
+                                alt={`My Logo`}
                                 />
                             </Grid>
 
-                            <Grid item md={8} className={cssStyle.mainData}>     
+                            <Grid item md={8} className={cssStyle.mainData}>
                                     <Box className={cssStyle.dataLine}>
                                         <Typography>ID: <strong>{myData._id}</strong></Typography>
                                     </Box>
                                     <Box className={cssStyle.dataLine}>
                                         <Typography>EMAIL: <strong>{myData.email}</strong></Typography>
-                                    </Box> 
+                                    </Box>
                                     <Box className={cssStyle.longData}>
                                         <Typography>NAME: </Typography>
                                             {
                                                 !edit ?
                                                 <Typography className={cssStyle.da}>{checkKey(name)}</Typography>
                                                 :
-                                                <TextField 
+                                                <TextField
                                                     id="outlined-multiline-flexible"
                                                     variant="outlined"
                                                     fullWidth
@@ -239,14 +231,14 @@ function Profile(){
                                                     onChange={(e) => nameHandler(e)}/>
                                             }
                                     </Box>
-                                    
+
                                     <Box className={cssStyle.longData}>
                                         <Typography>PROFESSION: </Typography>
                                             {
                                                 !edit ?
-                                                <Typography className={cssStyle.da}>{ checkKey(profession) }</Typography>  
+                                                <Typography className={cssStyle.da}>{ checkKey(profession) }</Typography>
                                                 :
-                                                <TextField 
+                                                <TextField
                                                 id="outlined-multiline-flexible"
                                                 multiline
                                                 maxRows={2}
@@ -260,34 +252,34 @@ function Profile(){
                                        <Typography>SKILLS: </Typography>
                                             {
                                                 !edit ?
-                                                   <Typography className={cssStyle.da}>{checkKey(skills)}</Typography> 
+                                                   <Typography className={cssStyle.da}>{checkKey(skills)}</Typography>
                                                 :
-                                                <TextField 
-                                                id="outlined-multiline-static"     
-                                                fullWidth                                              
+                                                <TextField
+                                                id="outlined-multiline-static"
+                                                fullWidth
                                                 multiline
                                                 rows={8}
                                                 variant="outlined"
                                                 value={skills}
                                                 onChange={(e) => skillsHandler(e)}/>
-                                            }                                
-                                    </Box> 
+                                            }
+                                    </Box>
                                     <Box className={cssStyle.longData}>
                                         <Typography>DETAILS: </Typography>
-                                            { 
+                                            {
                                                 !edit ?
                                                     <Typography className={cssStyle.da}>{checkKey(details)}</Typography>
-                                                :                        
+                                                :
                                                 <TextField
-                                                id="outlined-multiline-static"     
-                                                fullWidth                                              
+                                                id="outlined-multiline-static"
+                                                fullWidth
                                                 multiline
                                                 rows={8}
                                                 variant="outlined"
                                                 value={details}
                                                 onChange={(e) => detailsHandler(e)}/>
                                            }
-                                                        
+
                                     </Box>
 
                                     <Box className={cssStyle.longData}>
@@ -296,9 +288,9 @@ function Profile(){
                                                 !edit ?
                                                     <Typography className={cssStyle.da}>{checkKey(extraDetails)}</Typography>
                                                 :
-                                                <TextField 
-                                                id="outlined-multiline-static"     
-                                                fullWidth                                              
+                                                <TextField
+                                                id="outlined-multiline-static"
+                                                fullWidth
                                                 multiline
                                                 rows={8}
                                                 variant="outlined"
@@ -307,12 +299,12 @@ function Profile(){
                                             }
                                     </Box>
                             </Grid>
-                        </Grid> 
+                        </Grid>
                 </Box>
             { !edit &&
                 <Box className = {cssStyle.deleteButton}>
                         <DeleteAccount idUser={myData._id}/>
-                </Box>  
+                </Box>
             }
             </Container>
    );
